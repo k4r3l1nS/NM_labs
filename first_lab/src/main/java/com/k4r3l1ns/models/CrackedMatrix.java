@@ -198,4 +198,18 @@ public class CrackedMatrix {
 
         return row;
     }
+
+    public static CrackedMatrix copyOf(CrackedMatrix crackedMatrix) {
+
+        CrackedMatrix copy = new CrackedMatrix(crackedMatrix.size);
+
+        copy.size = crackedMatrix.size;
+        System.arraycopy(crackedMatrix.rSideDiagonal.getValues(), 0, copy.rSideDiagonal.getValues(), 0, copy.size);
+        System.arraycopy(crackedMatrix.lSideDiagonal.getValues(), 0, copy.lSideDiagonal.getValues(), 0, copy.size);
+        System.arraycopy(crackedMatrix.sideDiagonal.getValues(), 0, copy.sideDiagonal.getValues(), 0, copy.size);
+        System.arraycopy(crackedMatrix.uCrackedLine.getValues(), 0, copy.uCrackedLine.getValues(), 0, copy.size);
+        System.arraycopy(crackedMatrix.dCrackedLine.getValues(), 0, copy.dCrackedLine.getValues(), 0, copy.size);
+
+        return copy;
+    }
 }

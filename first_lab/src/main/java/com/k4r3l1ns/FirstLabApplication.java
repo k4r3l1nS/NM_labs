@@ -7,7 +7,7 @@ import com.k4r3l1ns.service.MatrixOperationUnit;
 
 import java.io.*;
 
-public class Main {
+public class FirstLabApplication {
 
     private static final String FILES_DIRECTORY = "/home/k4r3l1ns/Desktop/NM_labs/first_lab/src/main/resources/";
 
@@ -28,8 +28,6 @@ public class Main {
 
             var result = MatrixOperationUnit.solveEquation(crackedMatrix, vector);
             result.write(writer);
-
-
 
         } catch (FileNotFoundException ex) {
             System.out.println("Файл не найден");

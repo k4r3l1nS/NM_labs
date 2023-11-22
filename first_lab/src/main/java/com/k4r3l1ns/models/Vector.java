@@ -104,8 +104,7 @@ public class Vector {
     public void write(Writer writer) {
         try {
             for (var value : values) {
-                writer.write(String.format("%.2f\t\t", value));
-//                writer.write((int) value + " ");
+                writer.write(String.format("%.2f\t", value));
             }
             writer.write("\n");
             writer.flush();
@@ -116,8 +115,7 @@ public class Vector {
 
     public void print() {
         for (var value : values) {
-            System.out.printf("%.2f\t\t", value);
-//            System.out.print((int) value + " ");
+            System.out.printf("%.2f\t", value);
         }
         System.out.println();
     }
@@ -140,5 +138,10 @@ public class Vector {
 
     public void subtractValueAt(int pos, double value) {
         values[pos] -= value;
+    }
+
+    public void setValues(double[] values) {
+        this.values = values;
+        this.size = values.length;
     }
 }

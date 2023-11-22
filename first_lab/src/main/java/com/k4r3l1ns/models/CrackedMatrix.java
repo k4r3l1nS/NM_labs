@@ -56,10 +56,10 @@ public class CrackedMatrix {
         sideDiagonal = new Vector(size);
 
         lSideDiagonal = new Vector(size);
-        lSideDiagonal.setValueAt(0, 0.0);
+        lSideDiagonal.setValueAt(lSideDiagonal.getSize() - 1, 0.0);
 
         rSideDiagonal = new Vector(size);
-        rSideDiagonal.setValueAt(rSideDiagonal.getSize() - 1, 0.0);
+        rSideDiagonal.setValueAt(0, 0.0);
 
         uCrackedLine = new Vector(size);
         dCrackedLine = new Vector(size);
@@ -135,20 +135,20 @@ public class CrackedMatrix {
             }
 
             result.sideDiagonal.setValueAt(
-                    result.size - 1 - lineIndex,
+                    lineIndex,
                     row.getValueAt(row.getSize() - 1 - lineIndex)
             );
 
             if (lineIndex > 0) {
                 result.rSideDiagonal.setValueAt(
-                        result.size - 1 - lineIndex,
+                        lineIndex,
                         row.getValueAt(row.getSize() - lineIndex)
                 );
             }
 
             if (lineIndex < result.size - 1) {
                 result.lSideDiagonal.setValueAt(
-                        result.size - 1 - lineIndex,
+                        lineIndex,
                         row.getValueAt(row.getSize() - 2 - lineIndex)
                 );
             }
@@ -187,19 +187,13 @@ public class CrackedMatrix {
             row = dCrackedLine;
         } else if (pos < size - 1) {
             row = new Vector(size);
-            for (int j = 0; j < size - 1; ++j) {
-                if (j == size - pos - 2) {
-                    row.setValueAt(j, lSideDiagonal.getValueAt(j + 1));
-                } else if (j == size - pos - 1) {
-                    row.setValueAt(j, sideDiagonal.getValueAt(j));
-                } else if (j == size - pos) {
-                    row.setValueAt(j, rSideDiagonal.getValueAt(j - 1));
-                }
-            }
+            row.setValueAt(size - pos - 2, lSideDiagonal.getValueAt(pos));
+            row.setValueAt(size - pos - 1, sideDiagonal.getValueAt(pos));
+            row.setValueAt(size - pos, rSideDiagonal.getValueAt(pos));
         } else {
             row = new Vector(size);
-            row.setValueAt(0, sideDiagonal.getValueAt(0));
-            row.setValueAt(1, rSideDiagonal.getValueAt(0));
+            row.setValueAt(0, sideDiagonal.getValueAt(size - 1));
+            row.setValueAt(1, rSideDiagonal.getValueAt(size - 1));
         }
 
         return row;

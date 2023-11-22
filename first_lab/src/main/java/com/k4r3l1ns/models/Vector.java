@@ -6,7 +6,6 @@ import lombok.Setter;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.random.RandomGenerator;
 
 @Getter
 @Setter
@@ -105,7 +104,8 @@ public class Vector {
     public void write(Writer writer) {
         try {
             for (var value : values) {
-                writer.write(/*(int)*/ value + " ");
+                writer.write(String.format("%.2f\t\t", value));
+//                writer.write((int) value + " ");
             }
             writer.write("\n");
             writer.flush();
@@ -116,7 +116,8 @@ public class Vector {
 
     public void print() {
         for (var value : values) {
-            System.out.print(value + " ");
+            System.out.printf("%.2f\t\t", value);
+//            System.out.print((int) value + " ");
         }
         System.out.println();
     }
@@ -127,5 +128,17 @@ public class Vector {
 
     public void setValueAt(int pos, double value) {
         values[pos] = value;
+    }
+
+    public void multiplyValueAt(int pos, double scalar) {
+        values[pos] *= scalar;
+    }
+
+    public void addValueAt(int pos, double value) {
+        values[pos] += value;
+    }
+
+    public void subtractValueAt(int pos, double value) {
+        values[pos] -= value;
     }
 }

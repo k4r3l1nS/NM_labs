@@ -212,4 +212,31 @@ public class CrackedMatrix {
 
         return copy;
     }
+
+    public static CrackedMatrix poorConditionedMatrix(int size, double min, double max) {
+
+        var poorConditionedMatrix = new CrackedMatrix(size);
+
+        poorConditionedMatrix.getLSideDiagonal().fillWithRandomValues(min, max);
+        poorConditionedMatrix.getRSideDiagonal().fillWithRandomValues(min, max);
+
+        poorConditionedMatrix.getSideDiagonal().fillWithDependentValues(min, max);
+        poorConditionedMatrix.getUCrackedLine().fillWithDependentValues(min, max);
+        poorConditionedMatrix.getDCrackedLine().fillWithDependentValues(min, max);
+
+        return poorConditionedMatrix;
+    }
+
+    public static CrackedMatrix wellConditionedMatrix(int size, double min, double max) {
+
+        var wellConditionedMatrix = new CrackedMatrix(size);
+
+        wellConditionedMatrix.getSideDiagonal().fillWithRandomValues(min, max);
+        wellConditionedMatrix.getLSideDiagonal().fillWithRandomValues(min, max);
+        wellConditionedMatrix.getRSideDiagonal().fillWithRandomValues(min, max);
+        wellConditionedMatrix.getUCrackedLine().fillWithRandomValues(min, max);
+        wellConditionedMatrix.getDCrackedLine().fillWithRandomValues(min, max);
+
+        return wellConditionedMatrix;
+    }
 }

@@ -12,6 +12,7 @@ public class MatrixOperationUnit {
         }
 
         a = CrackedMatrix.copyOf(a);
+        f = Vector.copyOf(f);
 
         int size = a.getSize();
 

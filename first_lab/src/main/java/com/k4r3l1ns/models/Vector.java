@@ -53,7 +53,7 @@ public class Vector {
 
     public Vector subtract(Vector vector) {
 
-        vector = vector.negate();
+        vector = copyOf(vector).negate();
         return this.add(vector);
     }
 
@@ -76,7 +76,7 @@ public class Vector {
      * @return Норма
      */
     public double findNorm() {
-        return Arrays.stream(values).max().orElseThrow();
+        return Arrays.stream(values).map(Math::abs).max().orElseThrow();
     }
 
     public Vector fillWithRandomValues(double min, double max) {
@@ -84,6 +84,18 @@ public class Vector {
         for (int i = 0; i < size; ++i) {
             values[i] = ThreadLocalRandom.current().nextDouble(min, max);
         }
+        return this;
+    }
+
+    public Vector fillWithDependentValues(double min, double max) {
+
+        double coefficient1 = ThreadLocalRandom.current().nextDouble(min, max);
+        double coefficient2 = ThreadLocalRandom.current().nextDouble(min, max);
+
+        for (int i = 0; i < size; ++i) {
+            values[i] = i * coefficient1 + coefficient2;
+        }
+
         return this;
     }
 
@@ -143,5 +155,11 @@ public class Vector {
     public void setValues(double[] values) {
         this.values = values;
         this.size = values.length;
+    }
+
+    public static Vector copyOf(Vector vector) {
+        Vector result = new Vector(vector.size);
+        System.arraycopy(vector.getValues(), 0, result.getValues(), 0, vector.size);
+        return result;
     }
 }

@@ -19,12 +19,19 @@ public class FirstLabApplicationTests {
     @Test
     public void testIncorrectnessByReverseChecking() {
 
-        int size = 1000;
+        int size = 10;
 
         var crackedMatrix = CrackedMatrix.wellConditionedMatrix(size, 0.0, 100.0);
         var xPrecise = new Vector(size).fillWithRandomValues(0.0, 100.0);
-
         var vector = MatrixOperationUnit.multiply(crackedMatrix, xPrecise);
+
+        System.out.println("Проверка на заданной матрице: ");
+        crackedMatrix.print();
+        System.out.println("\nИ точном решении: ");
+        xPrecise.print();
+        System.out.println("\nВектор правой части имеет вид: ");
+        vector.print();
+
         var result = MatrixOperationUnit.solveEquation(crackedMatrix, vector);
 
         System.out.println("\nПогрешность при сравнении точного решения с полученным составляет: " +
@@ -32,7 +39,7 @@ public class FirstLabApplicationTests {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {5, 50, 500, 5000})
+    @ValueSource(ints = {8, 64, 512, 4096})
     public void testIncorrectnessByDimension(int size) {
 
         CrackedMatrix crackedMatrix = CrackedMatrix.wellConditionedMatrix(size, 0.0, 100.0);
@@ -119,8 +126,6 @@ public class FirstLabApplicationTests {
         xPrecise.print();
         System.out.println("\nВектор правой части имеет вид: ");
         f.print();
-        System.out.println("\nПогрешность в начале вычислений составляет: " +
-                MatrixOperationUnit.solveEquation(a, Vector.copyOf(f)).subtract(xPrecise).findNorm());
 
         // Шаг 2 (шаг 1 пропускается, т.к. первая "испорченная" диагональ на верхней строке матрицы)
         for (int i = size - 1; i > 1; --i) {
@@ -146,10 +151,10 @@ public class FirstLabApplicationTests {
             uCrackedLine.setValueAt(size - 1 - i, 0.0);
             uCrackedLine.subtractValueAt(size - i, r * rSideDiagonal.getValueAt(i));
             f.subtractValueAt(0, r * f.getValueAt(i));
-
-            System.out.println("Погрешность на этапе " + (size - i) + " составляет: " +
-                    MatrixOperationUnit.solveEquation(a, Vector.copyOf(f)).subtract(xPrecise).findNorm());
         }
+
+        System.out.println("Погрешность после шага 1 составляет: " +
+                MatrixOperationUnit.multiply(CrackedMatrix.copyOf(a), Vector.copyOf(xPrecise)).subtract(f).findNorm());
 
         var r = 1 / dCrackedLine.getValueAt(size - 2);
         dCrackedLine.setValueAt(size - 2, 1.0);
@@ -171,8 +176,8 @@ public class FirstLabApplicationTests {
         sideDiagonal.setValueAt(1, dCrackedLine.getValueAt(size - 2));
         rSideDiagonal.setValueAt(1, dCrackedLine.getValueAt(size - 1));
 
-        System.out.println("Погрешность на последнем этапе составляет: " +
-                MatrixOperationUnit.solveEquation(a, Vector.copyOf(f)).subtract(xPrecise).findNorm());
+        System.out.println("Погрешность после шага 2 составляет: " +
+                MatrixOperationUnit.multiply(CrackedMatrix.copyOf(a), Vector.copyOf(xPrecise)).subtract(f).findNorm());
 
         var x = new Vector(size);
 
@@ -183,7 +188,5 @@ public class FirstLabApplicationTests {
                     f.getValueAt(size - 1 - i) - rSideDiagonal.getValueAt(size - 1 - i) * x.getValueAt(i + 1)
             );
         }
-
-        System.out.println("\nОкончательная погрешность составляет: " + x.subtract(xPrecise).findNorm() + "\n");
     }
 }

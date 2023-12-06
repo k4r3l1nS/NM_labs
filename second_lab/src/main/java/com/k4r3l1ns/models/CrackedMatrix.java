@@ -74,7 +74,7 @@ public class CrackedMatrix {
 
     public CrackedMatrix add(CrackedMatrix crackedMatrix) {
 
-        if (crackedMatrix.size != size) {
+        if (!crackedMatrix.size.equals(size)) {
             throw new RuntimeException("Несовместимые размерности");
         }
 

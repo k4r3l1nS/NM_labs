@@ -139,7 +139,7 @@ public class MatrixOperationUnit {
 
     public static Vector multiply(CrackedMatrix crackedMatrix, Vector vector) {
 
-        if (crackedMatrix.getSize() != crackedMatrix.getSize()) {
+        if (!crackedMatrix.getSize().equals(vector.getSize())) {
             throw new RuntimeException("Размерности матрицы и вектора несовместимы");
         }
 

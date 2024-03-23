@@ -4,7 +4,6 @@ import lab.numeric.methods.EquationSolver;
 import lab.numeric.methods.core.models.Section;
 import lab.numeric.methods.core.models.Function;
 import lab.numeric.methods.core.enums.InterpolationMethod;
-import lab.numeric.methods.core.enums.SeparationType;
 import lab.numeric.methods.core.models.InterpolatedFunction;
 
 public class CubicSpline extends InterpolatedFunction {
@@ -20,13 +19,6 @@ public class CubicSpline extends InterpolatedFunction {
     public CubicSpline(Function function, Section section, double a, double b) {
         super(section, InterpolationMethod.CUBIC_SPLINE);
         this.args = section.getSeparation();
-        if (section.getSeparationType().equals(SeparationType.CHEBYSHEV)) {
-            for (int i = 0; i < this.args.length / 2; ++i) {
-                var tmp = args[i];
-                args[i] = args[args.length - 1 - i];
-                args[args.length - 1 - i] = tmp;
-            }
-        }
         var fValues = new double[args.length];
         for (int j = 0; j < args.length; j++) {
             fValues[j] = function.calculateExpression(args[j]);

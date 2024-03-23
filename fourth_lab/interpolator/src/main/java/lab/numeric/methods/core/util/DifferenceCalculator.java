@@ -10,12 +10,9 @@ import lab.numeric.methods.core.models.Section;
 
 public class DifferenceCalculator {
 
-    private static final double[] GENERATION_RANGE = { -5, 5 };
-
     private static final double A = -6;
     private static final double B_UNIFORM = -65;
     private static final double B_CHEBYSHEV = 0;
-    private static final double EPS = 1e-10;
 
     private DifferenceCalculator() {
         throw new IllegalStateException("Utility class");
@@ -30,9 +27,9 @@ public class DifferenceCalculator {
                         section,
 //                        ThreadLocalRandom.current().nextDouble(GENERATION_RANGE[0], GENERATION_RANGE[1]),
 //                        ThreadLocalRandom.current().nextDouble(GENERATION_RANGE[0], GENERATION_RANGE[1])
-                        A + EPS,
+                        A,
                         section.getSeparationType().equals(SeparationType.UNIFORM) ?
-                                B_UNIFORM + EPS : B_CHEBYSHEV + EPS
+                                B_UNIFORM : B_CHEBYSHEV
                 );
         double maxDiff = 0;
 

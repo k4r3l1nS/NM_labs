@@ -34,7 +34,7 @@ public class Section {
 
     private void chebyshevSeparation() {
         for (int i = 0; i <= n; i++) {
-            separation[i] = (a + b) + (b - a) * 0.5 * Math.cos(Math.PI * (2 * i + 1) / (2 * i + 2));
+            separation[i] = (a + b) + (b - a) * 0.5 * Math.cos(Math.PI * (n - i) / n);
         }
     }
 }

@@ -5,12 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lab.numeric.methods</groupId>
-    <artifactId>fourth_lab</artifactId>
+    <artifactId>NM_labs</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>equation-solver</module>
-        <module>interpolator</module>
+        <module>first_lab</module>
+        <module>second_lab</module>
+        <module>third_lab</module>
+        <module>fourth_lab</module>
     </modules>
 
     <properties>

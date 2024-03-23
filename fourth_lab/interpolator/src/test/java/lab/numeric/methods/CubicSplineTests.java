@@ -9,20 +9,14 @@ import lab.numeric.methods.gui.SimpleGUI;
 import org.junit.Test;
 
 public class CubicSplineTests {
-    private static final Function FUNCTION = x -> {
 
-        var val1 = Math.pow(x, 3) * 5;
-        var val2 = Math.pow(x, 2) * 2;
-        var val3 = -x * 5;
-        var val4 = 3;
-        return val1 + val2 + val3 + val4;
-    };
+    private static final Function FUNCTION = x -> -Math.pow(x, 3) + Math.pow(x, 2) + 9;
 
     private static final Section SECTION =
             new Section(0, 1.5, 3, SeparationType.CHEBYSHEV);
 
-    private static final double a = 4;
-    private static final double b = -1.3;
+    private static final double a = -6;
+    private static final double b = -4.75;
 
     @Test
     public void correctnessTest() {

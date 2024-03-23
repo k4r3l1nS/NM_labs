@@ -3,7 +3,7 @@ package com.k4r3l1ns.service;
 import com.k4r3l1ns.models.CrackedMatrix;
 import com.k4r3l1ns.models.Vector;
 
-public class MatrixOperationUnit {
+public class CrackedMatrixOperationUnit {
 
     public static Vector solveEquation(CrackedMatrix a, Vector f) {
 
@@ -118,7 +118,7 @@ public class MatrixOperationUnit {
 
         // Прогонка "вверх"
         x.setValueAt(size - uCrackedLinePos - 1, f.getValueAt(uCrackedLinePos));
-        for (int i = size - uCrackedLinePos - 1; i >= 0; --i) {
+        for (int i = uCrackedLinePos - 1; i >= 0; --i) {
             x.setValueAt(
                     size - i - 1,
                     f.getValueAt(i) - lSideDiagonal.getValueAt(i) * x.getValueAt(size - i - 2)

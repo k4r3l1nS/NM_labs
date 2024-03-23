@@ -1,49 +1,29 @@
 package com.k4r3l1ns;
 
-import com.k4r3l1ns.models.CrackedMatrix;
+import com.k4r3l1ns.models.TapeMatrix;
 import com.k4r3l1ns.models.Vector;
-import com.k4r3l1ns.service.MatrixOperationUnit;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import com.k4r3l1ns.service.TapeMatrixOperationUnit;
 
 public class SecondLabApplication {
 
-    private static final String FILES_DIRECTORY = "/home/k4r3l1ns/Desktop/NM_labs/second_lab/src/main/resources/";
+    public static final int SIZE = 7;
 
-    private static final File MATRIX_FILE = new File(FILES_DIRECTORY + "matrix.txt");
-    private static final File VECTOR_FILE = new File(FILES_DIRECTORY + "vector.txt");
-    private static final File X_PRECISE_FILE = new File(FILES_DIRECTORY + "precise.txt");
-    private static final File DESTINATION_FILE = new File(FILES_DIRECTORY + "result.txt");
+    public static final int TAPE_WIDTH = 3;
+
+    public static final double[] RANGE = {1.0, 10.0};
 
     public static void main(String[] args) {
 
-        try {
-            InputStream matrixFileStream = new FileInputStream(MATRIX_FILE);
-            InputStream vectorFileStream = new FileInputStream(VECTOR_FILE);
-            InputStream xPreciseFileStream = new FileInputStream(X_PRECISE_FILE);
+        TapeMatrix tapeMatrix = TapeMatrix.wellConditionedMatrix(SIZE, TAPE_WIDTH, RANGE);
+        Vector xPrecise = new Vector(SIZE).fillWithRandomValues(RANGE[0], RANGE[1]);
 
-            var crackedMatrix = CrackedMatrix.read(matrixFileStream);
-            var xPrecise = Vector.read(xPreciseFileStream);
-            var vector = Vector.read(vectorFileStream);
+        var vector = TapeMatrixOperationUnit.multiply(tapeMatrix, xPrecise);
+        var result = TapeMatrixOperationUnit.solveEquation(tapeMatrix, vector);
 
-//            System.out.println("\n\n" + crackedMatrix.getUCrackedLinePos() + "\n\n");
-//            crackedMatrix.print();
-            var result = MatrixOperationUnit.solveEquation(crackedMatrix, vector);
+        xPrecise.print();
+        result.print();
 
-            result.print();
-            System.out.println(
-                    MatrixOperationUnit.multiply(crackedMatrix, result).subtract(vector).findNorm()
-            );
+        System.out.println(Vector.copyOf(result).subtract(xPrecise).findNorm());
 
-
-//            MatrixOperationUnit.multiply(crackedMatrix, result).print();
-
-//            MatrixOperationUnit.multiply(crackedMatrix, xPrecise).print();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 }

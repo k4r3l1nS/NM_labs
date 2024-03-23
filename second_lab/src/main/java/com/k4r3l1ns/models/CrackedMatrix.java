@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static java.lang.Math.abs;
 
 @Getter
 @Setter
@@ -247,6 +250,7 @@ public class CrackedMatrix {
     public static CrackedMatrix wellConditionedMatrix(int size, double min, double max) {
 
         var wellConditionedMatrix = new CrackedMatrix(size);
+        wellConditionedMatrix.uCrackedLinePos = abs(ThreadLocalRandom.current().nextInt()) % (size - 1);
 
         wellConditionedMatrix.getSideDiagonal().fillWithRandomValues(min, max);
         wellConditionedMatrix.getLSideDiagonal().fillWithRandomValues(min, max);

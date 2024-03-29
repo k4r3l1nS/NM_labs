@@ -10,12 +10,12 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.text.DecimalFormat;
 
-public class CommonDifferenceTests {
+public class DifferenceTests {
 
     // x = x0 | func3(x0) = -6
     // x = xN | func1(xN) = -3 * xN^2 + 2 * xN
-    private static final Function FUNCTION = x -> -Math.pow(x, 3) + Math.pow(x, 2) + 9;
-//    private static final Function FUNCTION = Math::sin;
+//    private static final Function FUNCTION = x -> -Math.pow(x, 3) + Math.pow(x, 2) + 9;
+    private static final Function FUNCTION = Math::abs;
 
     @ParameterizedTest
     @ValueSource(strings = { "POLYNOMIAL", "CUBIC_SPLINE" })

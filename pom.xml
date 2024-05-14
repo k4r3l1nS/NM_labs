@@ -13,6 +13,7 @@
         <module>second_lab</module>
         <module>third_lab</module>
         <module>fourth_lab</module>
+        <module>fifth_lab</module>
     </modules>
 
     <properties>

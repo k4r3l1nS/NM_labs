@@ -14,7 +14,7 @@ public class SixthLabApplication {
 
     private static final Section SECTION = new Section(
             0,
-            3 * Math.PI / 2,
+            5 * Math.PI / 2,
             100,
             SeparationType.UNIFORM
     );
@@ -24,7 +24,6 @@ public class SixthLabApplication {
     private static final double B = 0.0;
     private static final double EPS = 1e-6;
     private static final int ITERATION_LIMIT = 1_000_000;
-
 
     // Уравнение U'' + U = 0
     private static final BiFunction<Double, double[], double[]> ODE = (t, y) -> {
@@ -69,6 +68,18 @@ public class SixthLabApplication {
             double t = SECTION.getA() + i * (SECTION.getB() - SECTION.getA()) / SECTION.getN();
             System.out.println("t = " + t + ", U(t) = " + result[i][0] + ", U'(t) = " + result[i][1]);
         }
+
+        double maxDiff = 0.0;
+        for (int i = 0; i < result.length; i++) {
+            double t = SECTION.getA() + i * (SECTION.getB() - SECTION.getA()) / 100;
+            double diff = Math.abs(result[i][0] - ANALYTICAL_FUNCTION.apply(t));
+            if (diff > maxDiff) {
+                maxDiff = diff;
+            }
+        }
+
+        System.out.println("\nПогрешность метода составляет " + maxDiff);
+
 
         SimpleGUI app = new SimpleGUI(
                 SECTION.getSeparation(),

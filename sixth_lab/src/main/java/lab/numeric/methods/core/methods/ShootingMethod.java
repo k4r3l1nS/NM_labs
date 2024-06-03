@@ -6,6 +6,8 @@ import static lab.numeric.methods.core.methods.RungeKuttMethod.rk4Method;
 
 public class ShootingMethod {
 
+    private static final int RK_SPLIT = 100;
+
     public static double newton(
             double mu0,
             double nu0,
@@ -14,7 +16,7 @@ public class ShootingMethod {
             double A,
             double B,
             BiFunction<Double, double[], double[]> ode,
-            double tol,
+            double eps,
             int maxIter
     ) {
         double du0 = 0.0; // Начальное предположение для U'(a)
@@ -27,16 +29,16 @@ public class ShootingMethod {
                     y0,
                     a,
                     b,
-                    100
+                    RK_SPLIT
             ); // Решение задачи Коши методом Рунге-Кутта
 
             double F = yb[yb.length - 1][0] - B; // Разница между решением и граничным условием в точке b
 
-            if (Math.abs(F) < tol) {
+            if (Math.abs(F) < eps) {
                 return du0; // Возвращаем корректное значение U'(a), если достигнута требуемая точность
             }
 
-            double[] y0Prime = {(A - nu0 * (du0 + tol)) / mu0, du0 + tol};
+            double[] y0Prime = {(A - nu0 * (du0 + eps)) / mu0, du0 + eps};
             double[][] ybPrime = rk4Method(
                     ode,
                     y0Prime,
@@ -46,7 +48,7 @@ public class ShootingMethod {
             );
 
             double FPrime = ybPrime[ybPrime.length - 1][0] - B;
-            double dFdu0 = (FPrime - F) / tol; // Численное вычисление производной F по du0
+            double dFdu0 = (FPrime - F) / eps; // Численное вычисление производной F по du0
 
             du0 -= F / dFdu0; // Корректировка начальной производной методом Ньютона
         }

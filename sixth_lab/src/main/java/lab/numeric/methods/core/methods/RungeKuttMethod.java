@@ -51,45 +51,4 @@ public class RungeKuttMethod {
 
         return results; // Возвращает массив с результатами на всем интервале [a, b]
     }
-
-//    public static double[] rk4Method(
-//            BiFunction<Double, double[], double[]> ode,
-//            double[] y0,
-//            double a,
-//            double b,
-//            int n
-//    ) {
-//
-//        double h = (b - a) / n;
-//        double[] y = y0.clone();
-//        double t = a;
-//
-//        for (int i = 0; i < n; ++i) {
-//            double[] k1 = scaleVector(ode.apply(t, y), h);
-//            double[] k2 = scaleVector(ode.apply(t + h / 2.0, sumVectors(y, scaleVector(k1, 0.5))), h);
-//            double[] k3 = scaleVector(ode.apply(t + h / 2.0, sumVectors(y, scaleVector(k2, 0.5))), h);
-//            double[] k4 = scaleVector(ode.apply(t + h, sumVectors(y, k3)), h);
-//
-//            // y = y + 1/6 (k1 + 2 * k2 + 2 * k3 + k4)
-//            y = sumVectors(
-//                    y,
-//                    scaleVector(
-//                            sumVectors(
-//                                    sumVectors(
-//                                            k1,
-//                                            scaleVector(k2, 2.0)
-//                                    ),
-//                                    sumVectors(
-//                                            scaleVector(k3, 2.0),
-//                                            k4
-//                                    )
-//                            ),
-//                            1.0 / 6.0
-//                    )
-//            );
-//            t += h;
-//        }
-//
-//        return y;
-//    }
 }

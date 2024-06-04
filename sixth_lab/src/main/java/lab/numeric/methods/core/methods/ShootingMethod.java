@@ -91,7 +91,7 @@ public class ShootingMethod {
                 y0,
                 a,
                 b,
-                n
+                RK_SPLIT
         );
 
         // Выводим решения на всем отрезке

@@ -16,10 +16,16 @@ public class SixthLabApplication {
             100,
             SeparationType.UNIFORM
     );
+
+
+    // U(0) + U'(0) = 1
     private static final double MU0 = 1.0;
-    private static final double NU0 = 0.0;
+    private static final double NU0 = 1.0;
     private static final double A = 1.0;
+
+    // U(5*pi/2) = 0
     private static final double B = 0.0;
+
     private static final double EPS = 1e-6;
     private static final int ITERATION_LIMIT = 1_000_000;
 

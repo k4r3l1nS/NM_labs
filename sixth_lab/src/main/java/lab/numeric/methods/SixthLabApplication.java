@@ -68,9 +68,6 @@ public class SixthLabApplication {
             }
         }
 
-        System.out.println("\nПогрешность метода составляет " + maxDiff);
-
-
         SimpleGUI app = new SimpleGUI(
                 SECTION.getSeparation(),
                 result,

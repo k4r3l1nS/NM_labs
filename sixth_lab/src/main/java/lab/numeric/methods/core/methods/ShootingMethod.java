@@ -7,7 +7,7 @@ import static lab.numeric.methods.core.methods.RungeKuttMethod.rk4Method;
 
 public class ShootingMethod {
 
-    private static final int RK_SPLIT = 100;
+    public static final int RK_SPLIT = 1000;
 
     private static double newton(
             double mu0,
@@ -45,7 +45,7 @@ public class ShootingMethod {
                     y0Prime,
                     a,
                     b,
-                    100
+                    RK_SPLIT
             );
 
             double FPrime = ybPrime[ybPrime.length - 1][0] - B;
@@ -102,7 +102,7 @@ public class ShootingMethod {
 
         double maxDiff = 0.0;
         for (int i = 0; i < result.length; i++) {
-            double t = a + i * (b - a) / 100;
+            double t = a + i * (b - a) / RK_SPLIT;
             double diff = Math.abs(result[i][0] - analyticalFunction.apply(t));
             if (diff > maxDiff) {
                 maxDiff = diff;

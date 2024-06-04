@@ -59,17 +59,13 @@ public class SixthLabApplication {
                 ITERATION_LIMIT
         );
 
-        double maxDiff = 0.0;
-        for (int i = 0; i < result.length; i++) {
-            double t = SECTION.getA() + i * (SECTION.getB() - SECTION.getA()) / 100;
-            double diff = Math.abs(result[i][0] - ANALYTICAL_FUNCTION.apply(t));
-            if (diff > maxDiff) {
-                maxDiff = diff;
-            }
-        }
-
         SimpleGUI app = new SimpleGUI(
-                SECTION.getSeparation(),
+                new Section(
+                        SECTION.getA(),
+                        SECTION.getB(),
+                        ShootingMethod.RK_SPLIT,
+                        SeparationType.UNIFORM
+                ).getSeparation(),
                 result,
                 ANALYTICAL_FUNCTION,
                 ANALYTICAL_DERIVATIVE

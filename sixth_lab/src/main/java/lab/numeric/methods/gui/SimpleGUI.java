@@ -61,7 +61,7 @@ public class SimpleGUI extends JFrame {
         XYSeries shootingMethodSeries = new XYSeries("Shooting method");
         XYSeries shootingMethodDerivativeSeries = new XYSeries("Derivative by shooting method");
 
-        int n = args.length;
+        int n = result.length;
         for (int i = 0; i < n; ++i) {
             analyticalFunctionSeries.add(args[i], analyticalFunction.apply(args[i]));
             analyticalDerivativeSeries.add(args[i], analyticalDerivative.apply(args[i]));
